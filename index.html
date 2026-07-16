@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>VERTEX | Launch tokens on Solana</title>
+<meta name="description" content="Mint tokens fast and securely on Solana — templates, plans, and everything you need to launch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F0E6;
+    --card:#FBFAF4;
+    --ink:#13150F;
+    --muted:#6B6D60;
+    --line: rgba(19,21,15,0.14);
+    --green:#2FAE55;
+    --green-deep:#1D7A3B;
+    --green-tint:#E4F3E6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  ::selection{ background:var(--green); color:#fff; }
+
+  /* ---------- Header ---------- */
+  header{ position:sticky; top:0; z-index:100; background:rgba(242,240,230,0.85); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; height:78px; }
+  .logo{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:21px; display:flex; align-items:center; gap:9px; letter-spacing:-0.3px; }
+  .logo .dot{ width:12px; height:12px; background:var(--green); border-radius:50%; }
+  .navlinks{ display:flex; gap:30px; font-size:14px; color:var(--muted); }
+  .navlinks a:hover{ color:var(--ink); }
+  .nav-cta{ font-family:'JetBrains Mono', monospace; font-size:13px; padding:12px 22px; border-radius:999px; background:var(--ink); color:#fff; transition:transform .2s; }
+  .nav-cta:hover{ transform:translateY(-2px); }
+  @media (max-width:860px){ .navlinks{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:44px 0 0; }
+  .hero-card{
+    position:relative;
+    background:var(--card);
+    border:2px solid var(--ink);
+    border-radius:32px;
+    padding:52px 56px 64px;
+    overflow:visible;
+  }
+  .hero-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap; }
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1.5px solid var(--ink); border-radius:999px; padding:11px 22px;
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+  }
+  .quote-mark{ font-family:'Space Grotesk', sans-serif; font-size:34px; font-weight:700; color:var(--green); line-height:1; }
+
+  .hero-main{ display:grid; grid-template-columns:1fr 220px; gap:36px; align-items:center; margin-top:18px; }
+  @media (max-width:760px){ .hero-main{ grid-template-columns:1fr; } .hero-card{ padding:40px 26px 56px; } }
+
+  h1.hero-headline{ font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-2px; line-height:0.94; }
+  h1.hero-headline .l1{ display:block; font-size:clamp(64px, 11vw, 128px); }
+  h1.hero-headline .l2{ display:flex; align-items:center; gap:14px; font-size:clamp(26px, 4.2vw, 40px); letter-spacing:-1px; margin-top:6px; }
+  h1.hero-headline .l2 .arrow{ color:var(--green); }
+
+  .hero-sub{ display:flex; gap:14px; margin-top:22px; align-items:flex-start; max-width:420px; }
+  .hero-sub p{ color:var(--muted); font-size:14.5px; line-height:1.6; }
+
+  .coin-orb{
+    width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #4FD37B, var(--green-deep) 70%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 30px 60px -20px rgba(29,122,59,0.45), inset 0 0 0 6px rgba(255,255,255,0.15);
+    justify-self:center;
+  }
+  .coin-orb span{ font-family:'Space Grotesk', sans-serif; font-size:64px; color:#fff; font-weight:700; }
+  @media (max-width:760px){ .coin-orb{ width:140px; height:140px; } .coin-orb span{ font-size:44px; } }
+
+  .stats-pill{
+    position:relative; margin:-34px auto 0; max-width:1040px;
+    background:var(--green); border-radius:999px;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:24px 40px; box-shadow:0 20px 45px -20px rgba(29,122,59,0.5);
+    z-index:5;
+  }
+  .stats-pill .s{ text-align:center; color:#fff; flex:1; }
+  .stats-pill .s b{ display:block; font-family:'Space Grotesk', sans-serif; font-size:22px; font-weight:700; }
+  .stats-pill .s span{ display:block; font-size:11px; opacity:0.85; margin-top:2px; }
+  @media (max-width:760px){
+    .stats-pill{ flex-wrap:wrap; gap:16px 8px; border-radius:24px; padding:22px; margin-top:-24px; }
+    .stats-pill .s{ flex:0 0 45%; }
+  }
+
+  /* ---------- Steps ---------- */
+  .section{ padding:96px 0 60px; }
+  .section-tight{ padding:60px 0; }
+  .head-row{ display:flex; align-items:center; gap:18px; margin-bottom:44px; flex-wrap:wrap; }
+  .head-row h2{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(22px,3vw,30px); text-transform:uppercase; letter-spacing:-0.5px; white-space:nowrap; }
+  .head-line{ flex:1; height:1px; background:var(--line); position:relative; min-width:40px; }
+  .head-line::after{ content:"→"; position:absolute; right:0; top:-11px; color:var(--ink); }
+  .head-row .accent-text{ color:var(--green-deep); }
+
+  .steps-row{ display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; }
+  .step-pill{
+    flex:1 0 140px; min-width:140px;
+    border:1.5px solid var(--ink); border-radius:20px;
+    padding:20px 18px; background:var(--card);
+    transition:all .25s;
+  }
+  .step-pill .n{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:26px; }
+  .step-pill .t{ font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.4; }
+  .step-pill.active{ background:var(--green); border-color:var(--green); flex:1.5 0 190px; }
+  .step-pill.active .n, .step-pill.active .t{ color:#fff; }
+  .step-pill.active .t{ opacity:0.9; }
+
+  /* ---------- Promo row ---------- */
+  .promo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:56px; }
+  @media (max-width:700px){ .promo-grid{ grid-template-columns:1fr; } }
+  .promo-card{ border-radius:24px; padding:32px; position:relative; overflow:hidden; }
+  .promo-dark{ background:var(--ink); color:#fff; }
+  .promo-green{ background:var(--green); color:#fff; }
+  .promo-card h3{ font-family:'Space Grotesk', sans-serif; font-size:21px; font-weight:700; max-width:260px; line-height:1.25; }
+  .promo-card p{ font-size:13.5px; margin-top:10px; opacity:0.85; max-width:260px; line-height:1.55; }
+  .avatar-ring{ width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#4FD37B,#1D7A3B); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; margin-bottom:16px; }
+  .promo-cta{ display:inline-flex; margin-top:20px; font-family:'JetBrains Mono', monospace; font-size:12.5px; border:1px solid rgba(255,255,255,0.4); border-radius:999px; padding:10px 18px; transition:all .2s; }
+  .promo-cta:hover{ background:#fff; color:var(--ink); }
+
+  /* ---------- Plans ---------- */
+  .filter-row{ display:flex; gap:10px; flex-wrap:wrap; margin:28px 0 44px; }
+  .filter-pill{ font-size:13px; border:1px solid var(--line); border-radius:999px; padding:9px 18px; color:var(--muted); }
+  .filter-pill.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  .plans-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:900px){ .plans-grid{ grid-template-columns:1fr; } }
+  .plan-card{ border:1.5px solid var(--ink); border-radius:24px; padding:30px; background:var(--card); display:flex; flex-direction:column; }
+  .plan-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .plan-top h3{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:22px; }
+  .plan-arrow{ width:34px; height:34px; border:1px solid var(--ink); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .plan-list{ margin-top:20px; display:flex; flex-direction:column; gap:11px; flex:1; }
+  .plan-list div{ display:flex; gap:10px; font-size:13.5px; color:var(--muted); align-items:flex-start; }
+  .plan-list .chk{ color:var(--green-deep); font-weight:700; flex:0 0 auto; }
+  .plan-bottom{ display:flex; justify-content:space-between; align-items:center; margin-top:26px; padding-top:18px; border-top:1px solid var(--line); }
+  .plan-tag{ font-size:11.5px; color:var(--muted); }
+  .plan-price{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:19px; }
+  .plan-btn{ margin-top:20px; text-align:center; padding:13px; border-radius:999px; border:1.5px solid var(--ink); font-size:13.5px; font-family:'JetBrains Mono', monospace; transition:all .2s; }
+  .plan-btn:hover{ background:var(--ink); color:#fff; }
+  .plan-card.featured{ border-color:var(--green); }
+  .plan-card.featured .plan-btn{ background:var(--green); border-color:var(--green); color:#fff; }
+  .plan-card.featured .plan-btn:hover{ background:var(--green-deep); }
+
+  /* ---------- Requirements ---------- */
+  .req-head{ display:flex; align-items:center; justify-content:space-between; gap:18px; }
+  .req-toggle{ width:38px; height:38px; border:1px solid var(--ink); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; flex:0 0 auto; }
+  .req-grid{ display:flex; flex-wrap:wrap; gap:22px 18px; margin-top:52px; padding:10px; }
+  .req-badge{
+    display:flex; align-items:center; gap:14px;
+    background:var(--green); color:#fff; border-radius:999px;
+    padding:16px 26px 16px 20px;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:14.5px;
+    box-shadow:0 14px 30px -14px rgba(29,122,59,0.4);
+  }
+  .req-badge .ico{ width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; font-size:17px; flex:0 0 auto; }
+  .req-badge span.sub{ display:block; font-family:'IBM Plex Sans', sans-serif; font-weight:400; font-size:11px; opacity:0.85; margin-top:2px; }
+  .req-badge:nth-child(1){ transform:rotate(-3deg); }
+  .req-badge:nth-child(2){ transform:rotate(2deg); }
+  .req-badge:nth-child(3){ transform:rotate(-2deg); background:var(--green-deep); }
+  .req-badge:nth-child(4){ transform:rotate(3deg); background:var(--green-deep); }
+  .req-badge:hover{ transform:rotate(0deg) scale(1.03); transition:transform .25s; }
+
+  /* ---------- Final CTA + footer ---------- */
+  .cta-final{ text-align:center; padding:110px 24px 90px; }
+  .cta-final h2{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(30px,5vw,52px); letter-spacing:-1px; }
+  .cta-final p{ color:var(--muted); margin:16px auto 30px; max-width:440px; }
+  .cta-final .btn-dark{ display:inline-flex; font-family:'JetBrains Mono', monospace; font-size:14px; padding:16px 30px; border-radius:999px; background:var(--ink); color:#fff; transition:transform .2s; }
+  .cta-final .btn-dark:hover{ transform:translateY(-2px); }
+
+  footer{ border-top:1px solid var(--line); padding:34px 0; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .foot-links{ display:flex; gap:22px; font-size:13px; color:var(--muted); }
+  .foot-links a:hover{ color:var(--ink); }
+  .foot-copy{ font-size:12px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
+
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>VERTEX</div>
+    <div class="navlinks">
+      <a href="#templates">Templates</a>
+      <a href="#steps">How it works</a>
+      <a href="#plans">Plans</a>
+      <a href="#need">Get started</a>
+    </div>
+    <a href="#launch" class="nav-cta">Start minting</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-card">
+      <div class="hero-top">
+        <div class="logo"><span class="dot"></span>VERTEX</div>
+        <a href="#templates" class="hero-badge">Choose a template</a>
+      </div>
+
+      <div class="hero-main">
+        <div>
+          <h1 class="hero-headline">
+            <span class="l1">MINT</span>
+            <span class="l2">TOKENS FAST AND SECURELY <span class="arrow">↑</span></span>
+          </h1>
+          <div class="hero-sub">
+            <span class="quote-mark">//</span>
+            <p>We'll take you from idea to a live token on Solana in minutes — no code required.</p>
+          </div>
+        </div>
+        <div class="coin-orb"><span>◎</span></div>
+      </div>
+    </div>
+
+    <div class="stats-pill">
+      <div class="s"><b>12,480+</b><span>tokens minted</span></div>
+      <div class="s"><b>98%</b><span>deploy success</span></div>
+      <div class="s"><b>4.2s</b><span>avg. deploy time</span></div>
+      <div class="s"><b>3</b><span>launch plans</span></div>
+      <div class="s"><b>1.2M</b><span>market page views</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="steps">
+  <div class="wrap">
+    <div class="head-row">
+      <h2>Six steps</h2>
+      <div class="head-line"></div>
+      <h2 class="accent-text">To launch your token</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step-pill"><div class="n">1</div><div class="t">Choose a template</div></div>
+      <div class="step-pill"><div class="n">2</div><div class="t">Connect your wallet</div></div>
+      <div class="step-pill"><div class="n">3</div><div class="t">Customize the metadata</div></div>
+      <div class="step-pill active"><div class="n">4</div><div class="t">Review and deploy on-chain</div></div>
+      <div class="step-pill"><div class="n">5</div><div class="t">Get your market page</div></div>
+      <div class="step-pill"><div class="n">6</div><div class="t">Congratulations, you're live!</div></div>
+    </div>
+
+    <div class="promo-grid">
+      <div class="promo-card promo-dark">
+        <div class="avatar-ring">🔥</div>
+        <h3>Trending template this week</h3>
+        <p>"Meme Launch" has been used in 340+ deploys in the last 7 days — the fastest-growing template on Vertex.</p>
+        <a href="#templates" class="promo-cta">Use this template →</a>
+      </div>
+      <div class="promo-card promo-green">
+        <div class="avatar-ring" style="background:rgba(255,255,255,0.2);">◎</div>
+        <h3>Not sure what it'll cost?</h3>
+        <p>Estimate your mint fee and plan cost before you connect a wallet.</p>
+        <a href="#plans" class="promo-cta">Calculate now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight" id="plans">
+  <div class="wrap">
+    <div class="head-row">
+      <h2>Launch plans</h2>
+      <div class="head-line"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-pill on">All templates</span>
+      <span class="filter-pill">Meme</span>
+      <span class="filter-pill">Utility</span>
+      <span class="filter-pill">Governance</span>
+      <span class="filter-pill">Custom</span>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-top"><h3>Starter</h3><span class="plan-arrow">↗</span></div>
+        <div class="plan-list">
+          <div><span class="chk">✓</span>One-click token deploy</div>
+          <div><span class="chk">✓</span>Standard metadata upload</div>
+          <div><span class="chk">✓</span>Community market page</div>
+          <div><span class="chk">✓</span>Basic analytics</div>
+        </div>
+        <div class="plan-bottom"><span class="plan-tag">Solo creators</span><span class="plan-price">0.02 ◎</span></div>
+        <a href="#launch" class="plan-btn">Choose plan</a>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-top"><h3>Pro</h3><span class="plan-arrow">↗</span></div>
+        <div class="plan-list">
+          <div><span class="chk">✓</span>Everything in Starter</div>
+          <div><span class="chk">✓</span>Priority Arweave pinning</div>
+          <div><span class="chk">✓</span>Custom market page themes</div>
+          <div><span class="chk">✓</span>Real-time holder alerts</div>
+        </div>
+        <div class="plan-bottom"><span class="plan-tag">Active builders</span><span class="plan-price">0.08 ◎</span></div>
+        <a href="#launch" class="plan-btn">Choose plan</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-top"><h3>Enterprise</h3><span class="plan-arrow">↗</span></div>
+        <div class="plan-list">
+          <div><span class="chk">✓</span>Everything in Pro</div>
+          <div><span class="chk">✓</span>Multi-token deploy batches</div>
+          <div><span class="chk">✓</span>Dedicated support channel</div>
+          <div><span class="chk">✓</span>Custom integrations</div>
+        </div>
+        <div class="plan-bottom"><span class="plan-tag">Studios &amp; DAOs</span><span class="plan-price">Custom</span></div>
+        <a href="#launch" class="plan-btn">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="need">
+  <div class="wrap">
+    <div class="req-head">
+      <div class="head-row" style="margin-bottom:0; flex:1;">
+        <h2>What you'll need</h2>
+        <div class="head-line"></div>
+      </div>
+      <span class="req-toggle">⊖</span>
+    </div>
+
+    <div class="req-grid">
+      <div class="req-badge"><span class="ico">◈</span><span>A Solana wallet<span class="sub">Phantom, Solflare, or similar</span></span></div>
+      <div class="req-badge"><span class="ico">◎</span><span>A little SOL<span class="sub">to cover the network fee</span></span></div>
+      <div class="req-badge"><span class="ico">◆</span><span>Your artwork<span class="sub">PNG, JPG, or GIF</span></span></div>
+      <div class="req-badge"><span class="ico">⚑</span><span>Mint authority<span class="sub">decide who can update it later</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <h2>Your token is one command away.</h2>
+  <p>Connect a wallet, pick a template, and Vertex handles deployment, artwork, and the market page it lives on.</p>
+  <a href="#launch" class="btn-dark">Start minting</a>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="logo"><span class="dot"></span>VERTEX</div>
+    <div class="foot-links">
+      <a href="#templates">Templates</a>
+      <a href="#steps">How it works</a>
+      <a href="#plans">Plans</a>
+    </div>
+    <div class="foot-copy">© 2026 VERTEX — built on Solana</div>
+  </div>
+</footer>
+
+</body>
+</html>
